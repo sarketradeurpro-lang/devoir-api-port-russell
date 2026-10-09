@@ -72,7 +72,7 @@ mongoose
 /* -------------------------------------------------------------------------- */
 
 // À décommenter au fur et à mesure (étapes D à G) :
-// app.use('/catways', require('./routes/catwayRoutes'));
+app.use('/catways', require('./routes/catwayRoutes'));
 // app.use('/users', require('./routes/userRoutes'));
 // app.use('/', require('./routes/authRoutes'));
 
