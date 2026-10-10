@@ -74,7 +74,7 @@ mongoose
 // À décommenter au fur et à mesure (étapes D à G) :
 app.use('/catways', require('./routes/catwayRoutes'));
 app.use('/catways', require('./routes/reservationRoutes'));
-// app.use('/users', require('./routes/userRoutes'));
+app.use('/users', require('./routes/users'));
 // app.use('/', require('./routes/authRoutes'));
 
 // Route temporaire : sera remplacée par la page d'accueil EJS (étape H)

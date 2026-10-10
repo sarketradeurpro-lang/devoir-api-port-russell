@@ -1,5 +1,5 @@
 /**
- * @file Modèle User.
+ * @file ModÃ¨le User.
  */
 const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Le nom d'utilisateur est obligatoire"],
     trim: true,
-    minlength: [2, "Le nom d'utilisateur doit contenir au moins 2 caractères"]
+    minlength: [2, "Le nom d'utilisateur doit contenir au moins 2 caractÃ¨res"]
   },
   email: {
     type: String,
@@ -15,12 +15,13 @@ const userSchema = new mongoose.Schema({
     unique: true,
     trim: true,
     lowercase: true,
-    match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "L'email doit être valide"]
+    match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "L'email doit Ãªtre valide"]
   },
   password: {
     type: String,
+    select: false,
     required: [true, "Le mot de passe est obligatoire"],
-    minlength: [8, "Le mot de passe doit contenir au moins 8 caractères"]
+    minlength: [8, "Le mot de passe doit contenir au moins 8 caractÃ¨res"]
   }
 });
 module.exports = mongoose.model('User', userSchema);
