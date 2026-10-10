@@ -67,20 +67,22 @@ mongoose
   .then(() => console.log('Connecté à MongoDB avec succès !'))
   .catch((err) => console.error('Erreur de connexion MongoDB :', err));
 
-/* -------------------------------------------------------------------------- */
-/*  Routes                                                                    */
-/* -------------------------------------------------------------------------- */
-
-// À décommenter au fur et à mesure (étapes D à G) :
-app.use('/catways', require('./routes/catwayRoutes'));
-app.use('/catways', require('./routes/reservationRoutes'));
-app.use('/users', require('./routes/users'));
-// app.use('/', require('./routes/authRoutes'));
+/* Routes publiques */
+app.use('/', require('./routes/authRoutes'));
 
 // Route temporaire : sera remplacée par la page d'accueil EJS (étape H)
 app.get('/', (req, res) => {
   res.send("Bienvenue sur l'API Port Russell");
 });
+
+/* Protection des routes privées */
+const isAuthenticated = require('./middlewares/auth');
+app.use(isAuthenticated);
+
+/* Routes privées */
+app.use('/catways', require('./routes/catwayRoutes'));
+app.use('/catways', require('./routes/reservationRoutes'));
+app.use('/users', require('./routes/users'));
 
 /* -------------------------------------------------------------------------- */
 /*  Démarrage du serveur                                                      */
