@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Formulaire de gestion des catways du port Russell.">
+  <title><%= mode === 'create' ? 'Nouveau catway' : 'Modifier un catway' %> - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/catways.css">
+</head>
+<body>
+  <%- include('partials/header', { currentPage: 'catways' }) %>
+
+  <main class="page-container">
+    <div class="page-heading">
+      <div>
+        <h1><%= mode === 'create' ? 'Créer un catway' : 'Modifier le catway n° ' + catway.catwayNumber %></h1>
+        <p>
+          <%= mode === 'create'
+            ? 'Renseignez les informations du nouvel appontement.'
+            : 'Vous pouvez uniquement modifier son état.' %>
+        </p>
+      </div>
+      <a class="button button-secondary" href="/catways-page">Retour à la liste</a>
+    </div>
+
+    <% if (error) { %>
+      <p class="message message-error" role="alert"><%= error %></p>
+    <% } %>
+
+    <form
+      class="catway-form"
+      action="<%= mode === 'create' ? '/catways-page' : '/catways-page/' + catway.catwayNumber + '/edit' %>"
+      method="POST"
+    >
+      <% if (mode === 'create') { %>
+        <div class="form-group">
+          <label for="catwayNumber">Numéro du catway</label>
+          <input
+            type="number"
+            id="catwayNumber"
+            name="catwayNumber"
+            min="1"
+            step="1"
+            required
+            value="<%= catway.catwayNumber || '' %>"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="catwayType">Type de catway</label>
+          <select id="catwayType" name="catwayType" required>
+            <option value="">Sélectionnez un type</option>
+            <option value="long" <%= catway.catwayType === 'long' ? 'selected' : '' %>>Long</option>
+            <option value="short" <%= catway.catwayType === 'short' ? 'selected' : '' %>>Short</option>
+          </select>
+        </div>
+      <% } else { %>
+        <p><strong>Numéro :</strong> <%= catway.catwayNumber %></p>
+        <p><strong>Type :</strong> <%= catway.catwayType %></p>
+      <% } %>
+
+      <div class="form-group">
+        <label for="catwayState">État du catway</label>
+        <textarea
+          id="catwayState"
+          name="catwayState"
+          minlength="3"
+          maxlength="500"
+          rows="4"
+          required
+        ><%= catway.catwayState || '' %></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button class="button button-primary" type="submit">
+          <%= mode === 'create' ? 'Créer le catway' : 'Enregistrer l’état' %>
+        </button>
+        <a class="button button-secondary" href="/catways-page">Annuler</a>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

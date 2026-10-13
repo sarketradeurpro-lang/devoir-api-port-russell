@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gestion des catways du port de plaisance Russell.">
+  <title>Gestion des catways - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/catways.css">
+</head>
+<body>
+  <%- include('partials/header', { currentPage: 'catways' }) %>
+
+  <main class="page-container">
+    <div class="page-heading">
+      <div>
+        <h1>Gestion des catways</h1>
+        <p>Consultez et gérez les appontements du port.</p>
+      </div>
+
+      <a class="button button-primary" href="/catways-page/new">
+        + Nouveau catway
+      </a>
+    </div>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+      <p class="message message-error" role="alert"><%= error %></p>
+    <% } %>
+
+    <% if (typeof success !== 'undefined' && success) { %>
+      <p class="message message-success" role="status"><%= success %></p>
+    <% } %>
+
+    <div class="table-container">
+      <table class="catways-table">
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Type</th>
+            <th scope="col">État</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% if (catways.length === 0) { %>
+            <tr>
+              <td colspan="4">Aucun catway enregistré.</td>
+            </tr>
+          <% } %>
+
+          <% catways.forEach(function(catway) { %>
+            <tr>
+              <td><%= catway.catwayNumber %></td>
+              <td><%= catway.catwayType %></td>
+              <td><%= catway.catwayState %></td>
+              <td>
+                <div class="table-actions">
+                  <a
+                    href="/catways-page/<%= catway.catwayNumber %>"
+                    aria-label="Voir le catway n° <%= catway.catwayNumber %>"
+                  >
+                    Voir
+                  </a>
+
+                  <a
+                    href="/catways-page/<%= catway.catwayNumber %>/edit"
+                    aria-label="Modifier le catway n° <%= catway.catwayNumber %>"
+                  >
+                    Modifier
+                  </a>
+
+                  <form
+                    action="/catways-page/<%= catway.catwayNumber %>/delete"
+                    method="POST"
+                    onsubmit="return confirm('Supprimer le catway n° <%= catway.catwayNumber %> et toutes ses réservations ?');"
+                  >
+                    <button
+                      class="button-link button-danger"
+                      type="submit"
+                      aria-label="Supprimer le catway n° <%= catway.catwayNumber %>"
+                    >
+                      Supprimer
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="page-note">
+      La modification d’un catway concerne uniquement son état.
+    </p>
+  </main>
+</body>
+</html>

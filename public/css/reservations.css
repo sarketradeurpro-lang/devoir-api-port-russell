@@ -1,0 +1,170 @@
+/* =========================================
+   Port Russell — Gestion des catways
+   Fichier : public/css/catways.css
+   ========================================= */
+
+.page-container {
+  width: min(1100px, calc(100% - 32px));
+  margin: 40px auto;
+}
+
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.page-heading h1 {
+  margin: 0 0 8px;
+}
+
+.page-heading p {
+  margin: 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-primary {
+  color: #fff;
+  background-color: #174a70;
+}
+
+.button-primary:hover {
+  background-color: #103653;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #d8dee5;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.catways-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.catways-table th,
+.catways-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e2e7ec;
+  vertical-align: middle;
+}
+
+.catways-table th {
+  color: #243746;
+  background-color: #edf2f6;
+  font-weight: 700;
+}
+
+.catways-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.catways-table tbody tr:hover {
+  background-color: #f7f9fb;
+}
+
+.table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.table-actions a {
+  color: #174a70;
+  font-weight: 600;
+}
+
+.table-actions form {
+  display: inline;
+  margin: 0;
+}
+
+.button-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button-danger {
+  color: #b42318;
+}
+
+.button-danger:hover {
+  text-decoration: underline;
+}
+
+.message {
+  margin: 0 0 20px;
+  padding: 12px 16px;
+  border-radius: 6px;
+}
+
+.message-error {
+  color: #842029;
+  border: 1px solid #f1aeb5;
+  background-color: #f8d7da;
+}
+
+.message-success {
+  color: #0f5132;
+  border: 1px solid #a3cfbb;
+  background-color: #d1e7dd;
+}
+
+.page-note {
+  margin-top: 20px;
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #e0a526;
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .page-container {
+    margin-top: 24px;
+  }
+
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .catways-table th,
+  .catways-table td {
+    padding: 10px;
+  }
+
+  .table-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}

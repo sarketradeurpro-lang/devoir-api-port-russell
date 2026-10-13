@@ -1,0 +1,208 @@
+/* ========================================
+   Port de plaisance Russell
+   Styles généraux du site
+   (page de connexion pour l'instant)
+   ======================================== */
+
+/* 1. Variables et règles générales */
+
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-page-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+
+  --color-primary: #174a6e;
+  --color-primary-hover: #103650;
+  --color-text: #1f2937;
+  --color-page-background: #f3f6fa;
+  --color-background: #ffffff;
+  --color-card-border: #e5e7eb;
+  --color-input-border: #6b7280;      /* contraste d'environ 4,8:1 sur blanc */
+  --color-focus: var(--color-primary); /* contraste élevé sur fond clair */
+  --color-error: #b42318;
+  --color-error-background: #fef3f2;
+  --color-error-border: #fecdca;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* 2. Conteneur principal */
+
+.container {
+  width: min(100% - 32px, 1000px);
+  margin-inline: auto;
+}
+
+/* 3. En-tête */
+
+.site-header {
+  padding: 24px 0;
+  color: #ffffff;
+  background-color: var(--color-primary);
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  text-align: center;
+}
+
+/* 4. Présentation */
+
+.intro {
+  margin: 40px 0 28px;
+  text-align: center;
+}
+
+.intro h2 {
+  margin-bottom: 8px;
+}
+
+.intro p {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* 5. Bloc de connexion */
+
+.login-section {
+  display: flex;
+  justify-content: center;
+  margin: 28px 0 40px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 440px;
+  padding: 28px;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-card-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgb(15 23 42 / 8%);
+}
+
+.login-container h2 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* 6. Formulaire */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-input-border);
+  border-radius: 6px;
+  font: inherit;
+}
+
+.form-group input:focus {
+  border-color: var(--color-primary);
+}
+
+/* 7. Bouton de connexion */
+
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 16px;
+  color: #ffffff;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* 8. Messages d'erreur */
+
+.error-message {
+  margin: 0 0 20px;
+  padding: 12px;
+  color: var(--color-error);
+  background-color: var(--color-error-background);
+  border: 1px solid var(--color-error-border);
+  border-radius: 6px;
+}
+
+/* 9. Documentation */
+
+.documentation-section {
+  margin: 32px 0;
+  text-align: center;
+}
+
+.documentation-section h2 {
+  font-size: 1.25rem;
+}
+
+.documentation-section a {
+  font-weight: 600;
+}
+
+/* 10. Adaptation aux petits écrans */
+
+@media (max-width: 480px) {
+  .container {
+    width: calc(100% - 24px);
+  }
+
+  .site-header {
+    padding: 20px 0;
+  }
+
+  .intro {
+    margin-top: 28px;
+  }
+
+  .login-container {
+    padding: 20px;
+  }
+}

@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="Tableau de bord de gestion du port de plaisance Russell."
+  >
+  <title>Tableau de bord - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>PORT DE PLAISANCE RUSSELL</h1>
+
+      <nav aria-label="Navigation principale">
+        <ul>
+          <li><a href="/catways-page">Catways</a></li>
+          <li><a href="/reservations-page">Réservations</a></li>
+          <li><a href="/users-page">Utilisateurs</a></li>
+          <li><a href="/api-docs">Documentation de l'API</a></li>
+          <li><a href="/logout">Déconnexion</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section aria-labelledby="titre-dashboard">
+      <h2 id="titre-dashboard">Tableau de bord</h2>
+
+      <p>
+        Connecté :
+        <strong><%= user.username %></strong>
+        — <%= user.email %>
+      </p>
+
+      <p>
+        Date du jour :
+        <time datetime="<%= new Date().toISOString().slice(0, 10) %>">
+          <%= new Date().toLocaleDateString('fr-FR') %>
+        </time>
+      </p>
+    </section>
+
+    <section aria-labelledby="titre-reservations">
+      <h2 id="titre-reservations">Réservations en cours</h2>
+
+      <% if (reservations.length === 0) { %>
+        <p>Aucune réservation en cours.</p>
+      <% } else { %>
+        <div class="table-container">
+          <table>
+            <caption>Liste des réservations en cours</caption>
+
+            <thead>
+              <tr>
+                <th scope="col">Catway</th>
+                <th scope="col">Client</th>
+                <th scope="col">Bateau</th>
+                <th scope="col">Début</th>
+                <th scope="col">Fin</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% reservations.forEach((reservation) => { %>
+                <tr>
+                  <td><%= reservation.catwayNumber %></td>
+                  <td><%= reservation.clientName %></td>
+                  <td><%= reservation.boatName %></td>
+                  <td>
+                    <time datetime="<%= new Date(reservation.startDate).toISOString().slice(0, 10) %>">
+                      <%= new Date(reservation.startDate).toLocaleDateString('fr-FR') %>
+                    </time>
+                  </td>
+                  <td>
+                    <time datetime="<%= new Date(reservation.endDate).toISOString().slice(0, 10) %>">
+                      <%= new Date(reservation.endDate).toLocaleDateString('fr-FR') %>
+                    </time>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </section>
+  </main>
+</body>
+</html>

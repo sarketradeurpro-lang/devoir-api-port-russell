@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Détails et réservations d'un catway du port Russell.">
+  <title>Catway n° <%= catway.catwayNumber %> - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/catways.css">
+</head>
+<body>
+  <%- include('partials/header', { currentPage: 'catways' }) %>
+
+  <main class="page-container">
+    <div class="page-heading">
+      <div>
+        <h1>Catway n° <%= catway.catwayNumber %></h1>
+        <p>Informations et réservations associées.</p>
+      </div>
+      <a class="button button-secondary" href="/catways-page">Retour à la liste</a>
+    </div>
+
+    <section class="catway-detail">
+      <h2>Informations du catway</h2>
+      <dl>
+        <dt>Numéro</dt>
+        <dd><%= catway.catwayNumber %></dd>
+
+        <dt>Type</dt>
+        <dd><%= catway.catwayType %></dd>
+
+        <dt>État</dt>
+        <dd><%= catway.catwayState %></dd>
+      </dl>
+
+      <a class="button button-primary" href="/catways-page/<%= catway.catwayNumber %>/edit">
+        Modifier l'état
+      </a>
+    </section>
+
+    <section class="catway-reservations">
+      <h2>Réservations associées</h2>
+
+      <% if (reservations.length === 0) { %>
+        <p>Aucune réservation pour ce catway.</p>
+      <% } else { %>
+        <div class="table-container">
+          <table class="catways-table">
+            <thead>
+              <tr>
+                <th scope="col">Client</th>
+                <th scope="col">Bateau</th>
+                <th scope="col">Date de début</th>
+                <th scope="col">Date de fin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% reservations.forEach(function(reservation) { %>
+                <tr>
+                  <td><%= reservation.clientName %></td>
+                  <td><%= reservation.boatName %></td>
+                  <td><%= new Date(reservation.startDate).toLocaleDateString('fr-FR') %></td>
+                  <td><%= new Date(reservation.endDate).toLocaleDateString('fr-FR') %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </section>
+  </main>
+</body>
+</html>

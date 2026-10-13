@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="Application de gestion des réservations de catways du port de plaisance Russell."
+  >
+  <title>Port de plaisance Russell - Connexion</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>PORT DE PLAISANCE RUSSELL</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro" aria-labelledby="titre-intro">
+      <h2 id="titre-intro">Présentation</h2>
+      <p>
+        Bienvenue sur l'application de gestion des réservations
+        de catways de la capitainerie.
+      </p>
+    </section>
+
+    <section class="login-section" aria-labelledby="titre-connexion">
+      <div class="login-container">
+        <h2 id="titre-connexion">Connexion</h2>
+
+        <% if (locals.error === 'champs') { %>
+          <p class="error-message" role="alert">
+            Veuillez renseigner votre adresse e-mail et votre mot de passe.
+          </p>
+        <% } else if (locals.error === 'identifiants') { %>
+          <p class="error-message" role="alert">
+            Adresse e-mail ou mot de passe incorrect.
+          </p>
+        <% } %>
+
+        <form action="/login" method="POST">
+          <div class="form-group">
+            <label for="email">Adresse e-mail</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="username"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              autocomplete="current-password"
+              required
+            >
+          </div>
+
+          <button type="submit">Se connecter</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="documentation-section" aria-labelledby="titre-documentation">
+      <h2 id="titre-documentation">Documentation</h2>
+      <p>
+        <a href="/api-docs">Consulter la documentation de l'API</a>
+      </p>
+    </section>
+  </main>
+</body>
+</html>

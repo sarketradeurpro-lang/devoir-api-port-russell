@@ -1,0 +1,42 @@
+<%#
+  Menu partagé des pages privées.
+  Variable attendue : currentPage ('dashboard', 'catways', 'reservations' ou 'users').
+  Les trois points sont : un seul endroit à modifier pour tout le site.
+%>
+<header class="site-header">
+  <div class="header-content">
+    <a class="site-title" href="/dashboard">
+      Port de plaisance Russell
+    </a>
+
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="/dashboard"
+         aria-current="<%= locals.currentPage === 'dashboard' ? 'page' : 'false' %>">
+        Tableau de bord
+      </a>
+
+      <a href="/catways-page"
+         aria-current="<%= locals.currentPage === 'catways' ? 'page' : 'false' %>">
+        Catways
+      </a>
+
+      <a href="/reservations-page"
+         aria-current="<%= locals.currentPage === 'reservations' ? 'page' : 'false' %>">
+        Réservations
+      </a>
+
+      <a href="/users-page"
+         aria-current="<%= locals.currentPage === 'users' ? 'page' : 'false' %>">
+        Utilisateurs
+      </a>
+
+      <a href="/api-docs">
+        Documentation API
+      </a>
+
+      <a href="/logout">
+        Déconnexion
+      </a>
+    </nav>
+  </div>
+</header>

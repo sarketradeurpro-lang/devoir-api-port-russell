@@ -6,10 +6,13 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
+const Reservation = require('./models/reservation');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongo').default;
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 
 // Charge les variables du fichier .env (doit être fait en premier)
 dotenv.config();
@@ -70,14 +73,45 @@ mongoose
 /* Routes publiques */
 app.use('/', require('./routes/authRoutes'));
 
-// Route temporaire : sera remplacée par la page d'accueil EJS (étape H)
+// Affiche la page d'accueil et les éventuels messages d'erreur de connexion.
 app.get('/', (req, res) => {
-  res.send("Bienvenue sur l'API Port Russell");
+  res.render('index', {
+    error: req.query.error || null
+  });
 });
 
 /* Protection des routes privées */
+/* Documentation interactive de l'API Swagger */
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 const isAuthenticated = require('./middlewares/auth');
 app.use(isAuthenticated);
+app.use('/catways-page', require('./routes/catwayPageRoutes'));
+app.use('/reservations-page', require('./routes/reservationPageRoutes'));
+app.use('/users-page', require('./routes/userPageRoutes'));
+
+/**
+ * Affiche le tableau de bord de l'utilisateur connecté.
+ * Les réservations affichées sont celles dont la période
+ * comprend la date actuelle.
+ */
+app.get('/dashboard', async (req, res, next) => {
+  try {
+    const now = new Date();
+
+    const reservations = await Reservation.find({
+      startDate: { $lte: now },
+      endDate: { $gte: now }
+    }).sort({ startDate: 1 });
+
+    return res.render('dashboard', {
+      user: req.session.user,
+      reservations
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
 
 /* Routes privées */
 app.use('/catways', require('./routes/catwayRoutes'));

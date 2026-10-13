@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gestion des utilisateurs du port de plaisance Russell.">
+  <title>Gestion des utilisateurs - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/users.css">
+</head>
+<body>
+  <%- include('partials/header', { currentPage: 'users' }) %>
+
+  <main class="page-container">
+    <% if (error) { %>
+      <p class="message message-error" role="alert"><%= error %></p>
+    <% } %>
+
+    <% if (success) { %>
+      <p class="message message-success" role="status"><%= success %></p>
+    <% } %>
+
+    <% if (mode === 'list') { %>
+      <section class="page-heading">
+        <div>
+          <h1>Gestion des utilisateurs</h1>
+          <p>Consultez et gérez les comptes utilisateurs.</p>
+        </div>
+        <a class="button button-primary" href="/users-page/new">
+          + Nouvel utilisateur
+        </a>
+      </section>
+
+      <div class="table-container">
+        <table class="users-table">
+          <caption>Liste des comptes utilisateurs enregistrés</caption>
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Adresse e-mail</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (users.length === 0) { %>
+              <tr>
+                <td colspan="3">Aucun utilisateur enregistré.</td>
+              </tr>
+            <% } %>
+
+            <% users.forEach((item) => { %>
+              <tr>
+                <td><%= item.username %></td>
+                <td><%= item.email %></td>
+                <td>
+                  <div class="table-actions">
+                    <a href="/users-page/<%= encodeURIComponent(item.email) %>">
+                      Détails
+                    </a>
+                    <a href="/users-page/<%= encodeURIComponent(item.email) %>/edit">
+                      Modifier
+                    </a>
+
+                    <% if (item._id.toString() !== currentUserId) { %>
+                      <a class="link-danger"
+                         href="/users-page/<%= encodeURIComponent(item.email) %>/delete">
+                        Supprimer
+                      </a>
+                    <% } else { %>
+                      <span class="form-note">Compte connecté</span>
+                    <% } %>
+                  </div>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+
+    <% } else if (mode === 'create' || mode === 'edit') { %>
+      <section class="page-heading">
+        <div>
+          <h1><%= mode === 'create' ? 'Créer un utilisateur' : 'Modifier un utilisateur' %></h1>
+          <p>
+            <%= mode === 'create'
+              ? 'Renseignez les informations du nouveau compte.'
+              : 'Modifiez les informations du compte sélectionné.' %>
+          </p>
+        </div>
+        <a class="button button-secondary" href="/users-page">
+          Retour à la liste
+        </a>
+      </section>
+
+      <form class="user-form"
+            action="<%= mode === 'create'
+              ? '/users-page'
+              : '/users-page/' + encodeURIComponent(user.email) + '/edit' %>"
+            method="post">
+
+        <div class="form-group">
+          <label for="username">Nom d'utilisateur</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            minlength="2"
+            maxlength="100"
+            autocomplete="username"
+            required
+            value="<%= formData.username || '' %>">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Adresse e-mail</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            maxlength="254"
+            autocomplete="email"
+            required
+            value="<%= formData.email || '' %>">
+        </div>
+
+        <div class="form-group">
+          <label for="password">
+            <%= mode === 'create' ? 'Mot de passe' : 'Nouveau mot de passe (facultatif)' %>
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            minlength="8"
+            autocomplete="<%= mode === 'create' ? 'new-password' : 'new-password' %>"
+            <%= mode === 'create' ? 'required' : '' %>>
+          <p class="form-note">
+            <%= mode === 'create'
+              ? 'Le mot de passe doit contenir au moins 8 caractères.'
+              : 'Laissez ce champ vide pour conserver le mot de passe actuel.' %>
+          </p>
+        </div>
+
+        <div class="form-actions">
+          <button class="button button-primary" type="submit">
+            <%= mode === 'create' ? 'Créer le compte' : 'Enregistrer les modifications' %>
+          </button>
+          <a class="button button-secondary" href="/users-page">Annuler</a>
+        </div>
+      </form>
+
+    <% } else if (mode === 'details') { %>
+      <section class="page-heading">
+        <div>
+          <h1>Détails de l'utilisateur</h1>
+          <p>Informations du compte sélectionné.</p>
+        </div>
+        <a class="button button-secondary" href="/users-page">
+          Retour à la liste
+        </a>
+      </section>
+
+      <dl class="user-details">
+        <dt>Nom d'utilisateur</dt>
+        <dd><%= user.username %></dd>
+
+        <dt>Adresse e-mail</dt>
+        <dd><%= user.email %></dd>
+      </dl>
+
+      <div class="form-actions">
+        <a class="button button-primary"
+           href="/users-page/<%= encodeURIComponent(user.email) %>/edit">
+          Modifier
+        </a>
+
+        <% if (!isCurrentUser) { %>
+          <a class="button button-danger"
+             href="/users-page/<%= encodeURIComponent(user.email) %>/delete">
+            Supprimer
+          </a>
+        <% } %>
+      </div>
+
+    <% } else if (mode === 'delete') { %>
+      <section class="page-heading">
+        <div>
+          <h1>Confirmer la suppression</h1>
+          <p>Vérifiez le compte avant de confirmer sa suppression.</p>
+        </div>
+      </section>
+
+      <section class="delete-confirmation">
+        <p>
+          Voulez-vous vraiment supprimer le compte
+          <strong><%= user.username %></strong> ?
+        </p>
+        <p>Adresse e-mail : <%= user.email %></p>
+        <p>Cette action est définitive.</p>
+
+        <div class="form-actions">
+          <form action="/users-page/<%= encodeURIComponent(user.email) %>/delete"
+                method="post">
+            <button class="button button-danger" type="submit">
+              Confirmer la suppression
+            </button>
+          </form>
+          <a class="button button-secondary" href="/users-page">
+            Annuler
+          </a>
+        </div>
+      </section>
+    <% } %>
+  </main>
+</body>
+</html>

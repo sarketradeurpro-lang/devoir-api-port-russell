@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gestion des réservations du port de plaisance Russell.">
+  <title>Gestion des réservations - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/reservations.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <main class="page-container">
+
+    <% if (error) { %>
+      <p class="message message-error" role="alert"><%= error %></p>
+    <% } %>
+
+    <% if (mode === 'list') { %>
+      <section class="page-heading">
+        <div>
+          <h1>Gestion des réservations</h1>
+          <p>Consultez et gérez les réservations des catways.</p>
+        </div>
+        <a class="button button-primary" href="/reservations-page/new">
+          + Nouvelle réservation
+        </a>
+      </section>
+
+      <div class="table-container">
+        <table class="catways-table">
+          <thead>
+            <tr>
+              <th>Catway</th>
+              <th>Client</th>
+              <th>Bateau</th>
+              <th>Date de début</th>
+              <th>Date de fin</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (reservations.length === 0) { %>
+              <tr>
+                <td colspan="6">Aucune réservation enregistrée.</td>
+              </tr>
+            <% } %>
+            <% reservations.forEach((item) => { %>
+              <tr>
+                <td><%= item.catwayNumber %></td>
+                <td><%= item.clientName %></td>
+                <td><%= item.boatName %></td>
+                <td><%= new Date(item.startDate).toLocaleDateString('fr-FR') %></td>
+                <td><%= new Date(item.endDate).toLocaleDateString('fr-FR') %></td>
+                <td>
+                  <div class="table-actions">
+                    <a href="/reservations-page/<%= item._id %>">Détails</a>
+                    <a href="/reservations-page/<%= item._id %>/edit">Modifier</a>
+                    <form action="/reservations-page/<%= item._id %>/delete" method="post"
+                          onsubmit="return confirm('Confirmer la suppression de cette réservation ?');">
+                      <button class="button-link button-danger" type="submit">Supprimer</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+
+    <% } else if (mode === 'create' || mode === 'edit') { %>
+      <section class="page-heading">
+        <div>
+          <h1><%= mode === 'create' ? 'Nouvelle réservation' : 'Modifier la réservation' %></h1>
+          <p>Renseignez les informations de la réservation.</p>
+        </div>
+        <a class="button button-secondary" href="/reservations-page">Retour à la liste</a>
+      </section>
+
+      <form class="reservation-form"
+            action="<%= mode === 'create' ? '/reservations-page' : '/reservations-page/' + reservation._id + '/edit' %>"
+            method="post">
+
+        <label for="catwayNumber">Numéro du catway</label>
+        <select id="catwayNumber" name="catwayNumber" required <%= mode === 'edit' ? 'disabled' : '' %>>
+          <option value="">Choisir un catway</option>
+          <% catways.forEach((catway) => { %>
+            <option value="<%= catway.catwayNumber %>"
+              <%= mode === 'edit' && reservation.catwayNumber === catway.catwayNumber ? 'selected' : '' %>>
+              Catway <%= catway.catwayNumber %> — <%= catway.catwayState %>
+            </option>
+          <% }); %>
+        </select>
+        <% if (mode === 'edit') { %>
+          <p class="form-note">Le catway ne peut pas être modifié pour une réservation existante.</p>
+        <% } %>
+
+        <label for="clientName">Nom du client</label>
+        <input id="clientName" name="clientName" type="text" minlength="2" required
+               value="<%= mode === 'edit' ? reservation.clientName : '' %>">
+
+        <label for="boatName">Nom du bateau</label>
+        <input id="boatName" name="boatName" type="text" required
+               value="<%= mode === 'edit' ? reservation.boatName : '' %>">
+
+        <label for="startDate">Date de début</label>
+        <input id="startDate" name="startDate" type="datetime-local" required
+               value="<%= mode === 'edit' ? new Date(reservation.startDate).toISOString().slice(0, 16) : '' %>">
+
+        <label for="endDate">Date de fin</label>
+        <input id="endDate" name="endDate" type="datetime-local" required
+               value="<%= mode === 'edit' ? new Date(reservation.endDate).toISOString().slice(0, 16) : '' %>">
+
+        <div class="form-actions">
+          <button class="button button-primary" type="submit">
+            <%= mode === 'create' ? 'Créer la réservation' : 'Enregistrer les modifications' %>
+          </button>
+          <a class="button button-secondary" href="/reservations-page">Annuler</a>
+        </div>
+      </form>
+
+    <% } else if (mode === 'details') { %>
+      <section class="page-heading">
+        <div>
+          <h1>Détails de la réservation</h1>
+          <p>Informations de la réservation sélectionnée.</p>
+        </div>
+        <a class="button button-secondary" href="/reservations-page">Retour à la liste</a>
+      </section>
+
+      <dl class="reservation-details">
+        <dt>Catway</dt>
+        <dd><%= reservation.catwayNumber %></dd>
+        <dt>Client</dt>
+        <dd><%= reservation.clientName %></dd>
+        <dt>Bateau</dt>
+        <dd><%= reservation.boatName %></dd>
+        <dt>Date de début</dt>
+        <dd><%= new Date(reservation.startDate).toLocaleString('fr-FR') %></dd>
+        <dt>Date de fin</dt>
+        <dd><%= new Date(reservation.endDate).toLocaleString('fr-FR') %></dd>
+      </dl>
+
+      <div class="form-actions">
+        <a class="button button-primary" href="/reservations-page/<%= reservation._id %>/edit">Modifier</a>
+        <form action="/reservations-page/<%= reservation._id %>/delete" method="post"
+              onsubmit="return confirm('Confirmer la suppression de cette réservation ?');">
+          <button class="button button-danger" type="submit">Supprimer</button>
+        </form>
+      </div>
+    <% } %>
+  </main>
+</body>
+</html>
