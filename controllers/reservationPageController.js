@@ -15,7 +15,12 @@ function isValidObjectId(value) {
 }
 
 /**
- * Affiche la page unique des réservations.
+ * Affiche la liste des réservations et des catways.
+ *
+ * @param {import('express').Request} req - Requête HTTP Express.
+ * @param {import('express').Response} res - Réponse HTTP Express.
+ * @param {import('express').NextFunction} next - Gestionnaire d'erreurs Express.
+ * @returns {Promise<void>} Affiche la page ou transmet l'erreur.
  */
 exports.list = async (req, res, next) => {
   try {
@@ -39,7 +44,12 @@ exports.list = async (req, res, next) => {
 };
 
 /**
- * Affiche les détails d'une réservation.
+ * Affiche les détails d'une réservation après validation de son identifiant.
+ *
+ * @param {import('express').Request} req - Requête contenant l'identifiant.
+ * @param {import('express').Response} res - Réponse HTTP Express.
+ * @param {import('express').NextFunction} next - Gestionnaire d'erreurs Express.
+ * @returns {Promise<void>} Affiche les détails ou transmet l'erreur.
  */
 exports.details = async (req, res, next) => {
   try {
@@ -73,7 +83,12 @@ exports.details = async (req, res, next) => {
 };
 
 /**
- * Affiche le formulaire de création ou de modification.
+ * Affiche le formulaire de création ou de modification d'une réservation.
+ *
+ * @param {import('express').Request} req - Requête contenant éventuellement l'identifiant.
+ * @param {import('express').Response} res - Réponse HTTP Express.
+ * @param {import('express').NextFunction} next - Gestionnaire d'erreurs Express.
+ * @returns {Promise<void>} Affiche le formulaire ou transmet l'erreur.
  */
 exports.form = async (req, res, next) => {
   try {
@@ -111,7 +126,12 @@ exports.form = async (req, res, next) => {
 };
 
 /**
- * Crée une réservation.
+ * Crée une réservation après validation des données reçues.
+ *
+ * @param {import('express').Request} req - Requête contenant les données de réservation.
+ * @param {import('express').Response} res - Réponse HTTP Express.
+ * @param {import('express').NextFunction} next - Gestionnaire d'erreurs Express.
+ * @returns {Promise<void>} Redirige selon le résultat ou transmet l'erreur.
  */
 exports.create = async (req, res, next) => {
   try {
@@ -167,7 +187,12 @@ exports.create = async (req, res, next) => {
 };
 
 /**
- * Modifie une réservation sans changer son catway.
+ * Modifie les informations d'une réservation existante sans changer son catway.
+ *
+ * @param {import('express').Request} req - Requête contenant l'identifiant et les données.
+ * @param {import('express').Response} res - Réponse HTTP Express.
+ * @param {import('express').NextFunction} next - Gestionnaire d'erreurs Express.
+ * @returns {Promise<void>} Redirige selon le résultat ou transmet l'erreur.
  */
 exports.update = async (req, res, next) => {
   try {
@@ -215,7 +240,12 @@ exports.update = async (req, res, next) => {
 };
 
 /**
- * Supprime une réservation après confirmation par le formulaire.
+ * Supprime une réservation existante après validation de son identifiant.
+ *
+ * @param {import('express').Request} req - Requête contenant l'identifiant de la réservation.
+ * @param {import('express').Response} res - Réponse HTTP Express.
+ * @param {import('express').NextFunction} next - Gestionnaire d'erreurs Express.
+ * @returns {Promise<void>} Redirige selon le résultat ou transmet l'erreur.
  */
 exports.remove = async (req, res, next) => {
   try {

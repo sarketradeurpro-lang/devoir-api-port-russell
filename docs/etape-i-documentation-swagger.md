@@ -90,3 +90,39 @@ La documentation Swagger de l'API Port de Plaisance Russell est générée et vi
 Les opérations des catways, des réservations, des utilisateurs et de l'authentification sont documentées.
 
 Les prochaines vérifications porteront sur la cohérence détaillée entre les réponses réellement renvoyées par les contrôleurs et celles décrites dans OpenAPI, ainsi que sur les autres exigences de livraison du projet.
+
+
+## 8. README et documentation du code
+
+### README.md
+
+Un fichier `README.md` a été créé à la racine du projet pour présenter :
+
+- l'objectif et les fonctionnalités de l'application ;
+- les technologies utilisées ;
+- les prérequis et les instructions d'installation ;
+- les variables d'environnement nécessaires ;
+- la commande de lancement en développement ;
+- l'adresse locale de l'application et de Swagger ;
+- les principales mesures de sécurité.
+
+Le README rappelle que le fichier `.env` contient des paramètres sensibles et ne doit pas être publié sur GitHub.
+
+### Documentation JSDoc
+
+Les commentaires JSDoc des contrôleurs et des routes ont été vérifiés et complétés progressivement.
+
+Les modifications récentes concernent notamment :
+
+- `controllers/reservationPageController.js` : documentation des fonctions de gestion des réservations dans l'interface EJS, avec les paramètres Express et les valeurs de retour ;
+- `routes/reservationPageRoutes.js` : ajout d'une description du routeur des pages de gestion des réservations.
+
+Ces annotations facilitent la compréhension du rôle des fonctions et de leurs paramètres sans modifier leur fonctionnement.
+
+### Vérifications complémentaires
+
+- [x] `README.md` existe à la racine du projet.
+- [x] `node --check ./controllers/reservationPageController.js` ne signale aucune erreur de syntaxe.
+- [x] `node --check ./routes/reservationPageRoutes.js` ne signale aucune erreur de syntaxe.
+
+La présence de ces commentaires ne remplace pas les tests fonctionnels de l'application. La vérification globale de la couverture JSDoc et la validation finale du dépôt restent à effectuer.
