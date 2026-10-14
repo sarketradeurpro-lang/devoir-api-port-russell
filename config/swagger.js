@@ -1,7 +1,7 @@
-﻿/**
+/**
  * @file Configuration de la documentation Swagger / OpenAPI.
  */
-
+const path = require('path');
 const swaggerJsdoc = require('swagger-jsdoc');
 
 const options = {
@@ -27,9 +27,9 @@ const options = {
     ]
   },
   apis: [
-    './routes/*.js',
-    './controllers/*.js',
-    './docs/swagger.js'
+    path.join(__dirname, '..', 'routes', '*.js'),
+    path.join(__dirname, '..', 'controllers', '*.js'),
+    path.join(__dirname, '..', 'docs', 'swagger.js')
   ]
 };
 

@@ -168,3 +168,14 @@ button:focus-visible {
     gap: 8px;
   }
 }
+
+/* Bouton secondaire : retour et annulation */
+.button-secondary {
+  color: #174a6e;
+  background-color: #fff;
+  border-color: #b8c4d0;
+}
+
+.button-secondary:hover {
+  background-color: #edf2f7;
+}

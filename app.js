@@ -82,7 +82,13 @@ app.get('/', (req, res) => {
 
 /* Protection des routes privées */
 /* Documentation interactive de l'API Swagger */
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    customJs: '/js/swagger-navigation.js'
+  })
+);
 
 const isAuthenticated = require('./middlewares/auth');
 app.use(isAuthenticated);

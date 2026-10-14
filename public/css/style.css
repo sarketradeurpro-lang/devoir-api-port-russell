@@ -206,3 +206,34 @@ button[type="submit"]:hover {
     padding: 20px;
   }
 }
+
+/* Lien de retour dans la documentation Swagger */
+
+.swagger-ui a.swagger-back-link,
+.swagger-ui a.swagger-back-link:link,
+.swagger-ui a.swagger-back-link:visited {
+  display: inline-block;
+  margin: 16px 20px;
+  padding: 8px 14px;
+  color: #ffffff !important;
+  background: #00804f !important;
+  border: 1px solid #006b42;
+  border-radius: 3px;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+.swagger-ui a.swagger-back-link:hover {
+  color: #ffffff !important;
+  background: #006b42 !important;
+  text-decoration: underline;
+}
+
+.swagger-ui a.swagger-back-link:focus-visible {
+  outline: 3px solid #111827;
+  outline-offset: 4px;
+}

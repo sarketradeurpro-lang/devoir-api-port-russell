@@ -153,6 +153,17 @@ L’étape H regroupe les éléments suivants :
 
 Les fichiers de cette étape sont organisés de manière à séparer les vues, les contrôleurs, les routes, les styles et la configuration de la documentation API.
 
+
+### 10.1 Boutons de retour au tableau de bord
+
+Un lien « ← Retour au tableau de bord » est intégré aux interfaces de gestion des Catways, des réservations et des utilisateurs.
+
+Ce lien pointe vers `/dashboard` et permet à l’utilisateur de revenir directement au tableau de bord depuis chacune de ces pages.
+
+Le bouton utilise les classes CSS communes `button` et `button-secondary`. Les styles de ce bouton sont harmonisés entre les interfaces afin de conserver une présentation cohérente.
+
+Cette navigation complète le menu commun défini dans `views/partials/header.ejs`.
+
 ## 11. Conclusion
 
 L’étape H porte sur les interfaces utilisateur, leur intégration à l’application Express, l’authentification, la protection des accès et la documentation interactive de l’API.

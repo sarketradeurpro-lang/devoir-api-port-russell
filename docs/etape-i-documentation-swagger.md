@@ -177,3 +177,29 @@ Le commit `e9b8bfe`, intitulé « Étape I : documentation Swagger, JSDoc et REA
 La documentation du projet comprend désormais la documentation OpenAPI avec Swagger, des commentaires JSDoc sur plusieurs fonctions des contrôleurs, ainsi qu'un README destiné à présenter et à installer l'application.
 
 Ces éléments améliorent la compréhension et la transmission du projet. Ils ne remplacent pas la validation de tous les cas fonctionnels ni les vérifications qui seront nécessaires lors du déploiement en ligne.
+
+
+## 10. Navigation et vérification de l'interface Swagger
+
+### Bouton de retour au tableau de bord
+
+Un lien « ← Retour au tableau de bord » a été ajouté à l'interface Swagger à l'aide du fichier `public/js/swagger-navigation.js`.
+
+Ce lien permet de revenir directement à la page `/dashboard` depuis la documentation interactive, sans devoir utiliser le bouton de retour du navigateur.
+
+Le style du lien est défini dans `public/css/style.css`.
+
+### Vérification des opérations documentées
+
+L'interface Swagger a été ouverte à l'adresse `/api-docs`. Les opérations sont visibles dans les quatre catégories suivantes :
+
+- **Authentification** : connexion et déconnexion ;
+- **Catways** : opérations de gestion des catways ;
+- **Réservations** : opérations de gestion des réservations ;
+- **Utilisateurs** : opérations de gestion des utilisateurs.
+
+La documentation interactive permet de consulter les méthodes HTTP, les paramètres, les corps de requête et les réponses décrites pour les opérations documentées.
+
+### Limites de la vérification
+
+L'affichage des opérations a été vérifié dans l'interface Swagger. Cette vérification visuelle ne garantit pas, à elle seule, que tous les exemples, codes de réponse et schémas correspondent exactement au comportement réel de chaque route. Des tests complémentaires restent nécessaires pour valider l'ensemble de l'API.
