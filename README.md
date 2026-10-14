@@ -56,6 +56,12 @@ Lorsque le serveur est lancé, la documentation Swagger est accessible à l'adre
 
 http://localhost:3000/api-docs
 
+### Application en production
+
+- **Application hébergée :** [https://devoir-api-port-russell-mum2.onrender.com](https://devoir-api-port-russell-mum2.onrender.com)
+- **Documentation Swagger en production :** [https://devoir-api-port-russell-mum2.onrender.com/api-docs](https://devoir-api-port-russell-mum2.onrender.com/api-docs)
+- **Dépôt GitHub :** [https://github.com/sarketradeurpro-lang/devoir-api-port-russell](https://github.com/sarketradeurpro-lang/devoir-api-port-russell)
+
 ## Fonctionnalités
 
 - Authentification et déconnexion
@@ -72,9 +78,19 @@ Les mots de passe sont hachés avant leur stockage. Les routes privées nécessi
 
 Le fichier `.env` contenant les paramètres sensibles ne doit jamais être publié sur GitHub.
 
-## Tests
+## Tests et vérifications
 
-Les tests fonctionnels doivent couvrir l'authentification, les opérations CRUD, la validation des données et les règles de gestion des réservations.
+### Vérifications réalisées en production
+
+Les vérifications manuelles suivantes ont été effectuées sur l'application hébergée :
+
+- Connexion au compte de test.
+- Affichage du tableau de bord.
+- Accès aux pages Catways, Réservations et Utilisateurs.
+- Accès à la documentation Swagger.
+- Vérification du fonctionnement de l'application après la restriction de l'accès réseau à MongoDB Atlas.
+
+Ces vérifications confirment le fonctionnement des parcours testés. Elles ne constituent pas une preuve que toutes les routes de l'API ont été testées de manière exhaustive.
 
 ## Auteur
 
