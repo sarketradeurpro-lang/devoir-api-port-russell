@@ -28,7 +28,8 @@ const options = {
   },
   apis: [
     './routes/*.js',
-    './controllers/*.js'
+    './controllers/*.js',
+    './docs/swagger.js'
   ]
 };
 
