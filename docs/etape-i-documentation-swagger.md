@@ -126,3 +126,54 @@ Ces annotations facilitent la compréhension du rôle des fonctions et de leurs 
 - [x] `node --check ./routes/reservationPageRoutes.js` ne signale aucune erreur de syntaxe.
 
 La présence de ces commentaires ne remplace pas les tests fonctionnels de l'application. La vérification globale de la couverture JSDoc et la validation finale du dépôt restent à effectuer.
+
+
+
+## 9. Compléments apportés lors de la finalisation
+
+### Mise à jour du README
+
+Le fichier `README.md` a été créé à la racine du projet et complété avec les informations d'installation et de lancement.
+
+Il présente les technologies utilisées, les fonctionnalités principales, l'accès à Swagger et les précautions relatives aux données sensibles.
+
+Les variables d'environnement documentées sont :
+
+- `MONGO_URI` : adresse de connexion à la base MongoDB ;
+- `SESSION_SECRET` : secret utilisé pour sécuriser les sessions ;
+- `NODE_ENV` : environnement d'exécution de l'application ;
+- `PORT` : port d'écoute du serveur, avec une valeur par défaut de 3000.
+
+Les valeurs réelles des variables sensibles doivent rester confidentielles et ne pas être publiées sur GitHub.
+
+### Compléments JSDoc
+
+La documentation du code a été complétée pour améliorer la lisibilité des fonctions de gestion des réservations depuis l'interface EJS.
+
+Dans `controllers/reservationPageController.js`, les fonctions suivantes disposent de commentaires décrivant leur rôle, leurs paramètres Express et leur valeur de retour :
+
+- `list` : affichage de la liste des réservations et des catways ;
+- `details` : affichage des détails d'une réservation ;
+- `form` : affichage du formulaire de création ou de modification ;
+- `create` : création d'une réservation ;
+- `update` : modification d'une réservation ;
+- `remove` : suppression d'une réservation.
+
+Dans `routes/reservationPageRoutes.js`, un commentaire de module décrit le rôle des routes de l'interface web de gestion des réservations.
+
+### Vérifications réalisées
+
+Les contrôles suivants ont été effectués sur les fichiers modifiés :
+
+- `node --check ./controllers/reservationPageController.js` : aucune erreur de syntaxe signalée ;
+- `node --check ./routes/reservationPageRoutes.js` : aucune erreur de syntaxe signalée ;
+- `git diff --check` : aucune erreur d'espacement signalée ; un avertissement relatif aux fins de ligne Windows (LF/CRLF) a été affiché ;
+- `git status --short` : utilisé pour identifier les fichiers modifiés avant leur enregistrement.
+
+Le commit `e9b8bfe`, intitulé « Étape I : documentation Swagger, JSDoc et README », a enregistré les quatre fichiers documentaires et les modifications JSDoc concernés.
+
+### Bilan de finalisation
+
+La documentation du projet comprend désormais la documentation OpenAPI avec Swagger, des commentaires JSDoc sur plusieurs fonctions des contrôleurs, ainsi qu'un README destiné à présenter et à installer l'application.
+
+Ces éléments améliorent la compréhension et la transmission du projet. Ils ne remplacent pas la validation de tous les cas fonctionnels ni les vérifications qui seront nécessaires lors du déploiement en ligne.
